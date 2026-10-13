@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useFestival } from '../context/FestivalContext';
-import { FilmSubmission, AICategory } from '../types/festival';
+import { FilmSubmission } from '../types/festival';
 import { FilmCard } from './FilmCard';
 import { 
   Search, 
@@ -8,9 +8,7 @@ import {
   ChevronLeft,
   ChevronRight,
   RefreshCw,
-  AlertCircle
 } from 'lucide-react';
-import { CATEGORY_LABELS } from '../data/mockFilms';
 
 export const CatalogView: React.FC = () => {
   const { 
@@ -18,8 +16,6 @@ export const CatalogView: React.FC = () => {
     isLoadingBunny,
     bunnyError,
     refetchBunnyFilms,
-    activeCategory, 
-    setActiveCategory, 
     searchQuery, 
     setSearchQuery, 
     setActiveFilmId, 
@@ -35,10 +31,6 @@ export const CatalogView: React.FC = () => {
 
   // Filter films
   const filteredFilms = films.filter((film) => {
-    if (activeCategory !== 'all' && film.category !== activeCategory) {
-      return false;
-    }
-
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       const matchTitle = film.title.toLowerCase().includes(q) || film.titleAr.includes(q);
@@ -63,42 +55,28 @@ export const CatalogView: React.FC = () => {
     setActiveView('screening');
   };
 
-  const handleCategoryChange = (cat: string) => {
-    setActiveCategory(cat);
-    setCurrentPage(1);
-  };
-
-  const categories: { id: string; label: string; labelAr: string }[] = [
-    { id: 'all', label: `All Films (${films.length})`, labelAr: `جميع الأفلام (${films.length})` },
-    { id: 'narrative', label: 'Narrative', labelAr: 'الروائي' },
-    { id: 'scifi', label: 'Sci-Fi', labelAr: 'الخيال العلمي' },
-    { id: 'animation', label: 'Animation', labelAr: 'التحريك' },
-    { id: 'experimental', label: 'Experimental', labelAr: 'التجريبي' },
-    { id: 'documentary', label: 'Documentary', labelAr: 'الوثائقي' },
-  ];
-
   return (
     <div className="space-y-6">
       {/* Editorial Header Banner */}
       <div className="bg-white rounded-2xl border border-stone-200 p-6 md:p-8 shadow-xs">
         <div className="max-w-3xl space-y-2">
           <div className="text-xs font-mono text-[#9E7A2A] uppercase tracking-wider font-semibold">
-            Al Mamoura Film Festival · Official AI Competition Lineup
+            Al Mamoura Film Festival · Official Documentary Competition
           </div>
 
           <h1 className="font-['Cinzel'] text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight leading-tight">
-            {isAr ? 'أفلام مسابقة الذكاء الاصطناعي' : 'AI Contest Films Lineup'}
+            {isAr ? 'أفلام المسابقة الوثائقية' : 'Documentary Competition Films'}
           </h1>
 
           <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
             {isAr
-              ? 'مجموعة الأفلام الرسمية المشاركة في المسابقة، مستضافة عبر مشغل Bunny Stream الرسمي للتحكيم.'
-              : 'Official competition films streamed directly from Bunny Stream for festival jury evaluation.'}
+              ? 'الأفلام الوثائقية الرسمية المشاركة في المسابقة، مستضافة عبر Bunny Stream للتحكيم.'
+              : 'Official documentary entries streamed from Bunny Stream for festival jury evaluation.'}
           </p>
 
           <div className="pt-2 flex flex-wrap items-center gap-4 text-xs text-stone-500 font-mono">
             <span>
-              <strong className="text-stone-900">{films.length}</strong> Films Loaded from Bunny Stream
+              <strong className="text-stone-900">{films.length}</strong> Documentaries Loaded from Bunny Stream
             </span>
             <span>·</span>
             <span>
@@ -148,26 +126,6 @@ export const CatalogView: React.FC = () => {
       {films.length > 0 && (
         <>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-            {/* Category Horizontal Filter Buttons */}
-            <div className="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none">
-              {categories.map((cat) => {
-                const isSelected = activeCategory === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => handleCategoryChange(cat.id)}
-                    className={`whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                      isSelected
-                        ? 'bg-stone-900 text-white font-semibold'
-                        : 'bg-white border border-stone-200 text-stone-600 hover:text-stone-900 hover:border-stone-300'
-                    }`}
-                  >
-                    {isAr ? cat.labelAr : cat.label}
-                  </button>
-                );
-              })}
-            </div>
-
             {/* Search Box */}
             <div className="relative w-full sm:w-64">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-stone-400" />
@@ -192,7 +150,6 @@ export const CatalogView: React.FC = () => {
               <button
                 onClick={() => {
                   setSearchQuery('');
-                  setActiveCategory('all');
                   setCurrentPage(1);
                 }}
                 className="text-xs text-[#9E7A2A] font-medium hover:underline"

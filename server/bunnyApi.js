@@ -1,9 +1,9 @@
 export const createBunnyVideosHandler = (configuredEnv = {}) => async (req, res) => {
   const env = { ...configuredEnv, ...process.env };
-  const apiKey = env.BUNNY_API_KEY || env.VITE_BUNNY_API_KEY;
-  const libraryId = env.BUNNY_LIBRARY_ID || env.VITE_BUNNY_LIBRARY_ID;
-  const collectionId = env.BUNNY_COLLECTION_ID || env.VITE_BUNNY_COLLECTION_ID;
-  const configuredPullZone = env.BUNNY_PULL_ZONE || env.VITE_BUNNY_PULL_ZONE;
+  const apiKey = env.BUNNY_API_KEY;
+  const libraryId = env.BUNNY_LIBRARY_ID;
+  const collectionId = env.BUNNY_COLLECTION_ID;
+  const configuredPullZone = env.BUNNY_PULL_ZONE;
 
   if (!apiKey) {
     res.statusCode = 503;

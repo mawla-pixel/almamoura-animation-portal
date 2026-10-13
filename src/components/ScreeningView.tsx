@@ -8,7 +8,6 @@ import {
   Award, 
   Save, 
   CheckCircle2,
-  Cpu
 } from 'lucide-react';
 import { CATEGORY_LABELS } from '../data/mockFilms';
 
@@ -49,7 +48,7 @@ export const ScreeningView: React.FC = () => {
   const [storytelling, setStorytelling] = useState(existingScore?.storytelling ?? 8);
   const [directionCinematography, setDirectionCinematography] = useState(existingScore?.directionCinematography ?? 8);
   const [soundDesign, setSoundDesign] = useState(existingScore?.soundDesign ?? 7);
-  const [aiInnovation, setAiInnovation] = useState(existingScore?.aiInnovation ?? 8);
+  const [documentaryInsight, setDocumentaryInsight] = useState(existingScore?.documentaryInsight ?? 8);
   const [recommendation, setRecommendation] = useState<ScoreRubric['recommendation']>(
     existingScore?.recommendation ?? 'official_selection'
   );
@@ -63,7 +62,7 @@ export const ScreeningView: React.FC = () => {
       setStorytelling(s.storytelling);
       setDirectionCinematography(s.directionCinematography);
       setSoundDesign(s.soundDesign);
-      setAiInnovation(s.aiInnovation);
+      setDocumentaryInsight(s.documentaryInsight);
       setRecommendation(s.recommendation);
       setWrittenCritique(s.writtenCritique);
     } else {
@@ -71,14 +70,14 @@ export const ScreeningView: React.FC = () => {
       setStorytelling(8);
       setDirectionCinematography(8);
       setSoundDesign(7);
-      setAiInnovation(8);
+      setDocumentaryInsight(8);
       setRecommendation('official_selection');
       setWrittenCritique('');
     }
     setSavedSuccess(false);
   }, [activeFilm.id, currentJudge.id, getJudgeScore]);
 
-  const totalScore = visualCoherence + storytelling + directionCinematography + soundDesign + aiInnovation;
+  const totalScore = visualCoherence + storytelling + directionCinematography + soundDesign + documentaryInsight;
 
   const handleSave = () => {
     saveScore(activeFilm.id, {
@@ -86,7 +85,7 @@ export const ScreeningView: React.FC = () => {
       storytelling,
       directionCinematography,
       soundDesign,
-      aiInnovation,
+      documentaryInsight,
       recommendation,
       writtenCritique,
       isCompleted: true,
@@ -155,9 +154,6 @@ export const ScreeningView: React.FC = () => {
               {isAr ? activeFilm.synopsisAr : activeFilm.synopsis}
             </p>
 
-            <div className="text-[11px] text-stone-500 font-mono pt-1">
-              AI Tools: {activeFilm.aiToolchain.join(' · ')}
-            </div>
           </div>
         </div>
 
@@ -184,11 +180,11 @@ export const ScreeningView: React.FC = () => {
           {/* 5 Clean Sliders */}
           <div className="space-y-3">
             {[
-              { label: isAr ? 'الاتساق البصري' : 'Visual Coherence', val: visualCoherence, set: setVisualCoherence },
-              { label: isAr ? 'السرد الدرامي' : 'Storytelling & Arc', val: storytelling, set: setStorytelling },
-              { label: isAr ? 'الإخراج والتصوير' : 'Direction & Framing', val: directionCinematography, set: setDirectionCinematography },
-              { label: isAr ? 'التصميم الصوتي' : 'Sound & Audio Design', val: soundDesign, set: setSoundDesign },
-              { label: isAr ? 'الابتكار في الذكاء الاصطناعي' : 'AI Workflow Innovation', val: aiInnovation, set: setAiInnovation },
+              { label: isAr ? 'السرد البصري' : 'Visual Storytelling', val: visualCoherence, set: setVisualCoherence },
+              { label: isAr ? 'البنية السردية والإيقاع' : 'Narrative Structure & Pacing', val: storytelling, set: setStorytelling },
+              { label: isAr ? 'الإخراج والتصوير السينمائي' : 'Direction & Cinematography', val: directionCinematography, set: setDirectionCinematography },
+              { label: isAr ? 'التصميم الصوتي والموسيقى' : 'Sound & Music', val: soundDesign, set: setSoundDesign },
+              { label: isAr ? 'عمق الرؤية الوثائقية' : 'Documentary Insight & Impact', val: documentaryInsight, set: setDocumentaryInsight },
             ].map((item, idx) => (
               <div key={idx} className="bg-stone-50 p-3 rounded-xl border border-stone-200/80">
                 <div className="flex items-center justify-between text-xs mb-1">
@@ -219,10 +215,10 @@ export const ScreeningView: React.FC = () => {
             >
               <option value="official_selection">Official Selection</option>
               <option value="grand_prize">🏆 Grand Jury Prize Nominee</option>
-              <option value="best_visuals">✨ Best Visual Direction</option>
-              <option value="best_story">📖 Best Screenplay</option>
-              <option value="best_sound">🎧 Best Sound Design</option>
-              <option value="innovation_award">⚡ AI Innovation Award</option>
+              <option value="best_directing">🎬 Best Directing</option>
+              <option value="best_cinematography">📷 Best Cinematography</option>
+              <option value="best_editing">✂️ Best Editing</option>
+              <option value="best_documentary_impact">🌍 Best Documentary Impact</option>
             </select>
           </div>
 

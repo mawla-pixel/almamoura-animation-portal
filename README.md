@@ -1,23 +1,35 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Al Mamoura Documentary Jury Portal
 
-# Run and deploy your AI Studio app
+Official screening and jury evaluation portal for the documentary section of the Al Mamoura International Film Festival. Films are loaded from Bunny Stream.
 
-This contains everything you need to run your app locally.
+## Configure environment variables
 
-View your app in AI Studio: https://ai.studio/apps/3ec3ec41-9a18-4d77-80a4-5d6a5b45fcdb
+Copy `.env.example` to `.env` for local development, then set:
 
-## Run and deploy
+| Variable | Required | Description |
+| --- | --- | --- |
+| `BUNNY_API_KEY` | Yes | Bunny Stream API key. Keep this server-side and do not use a `VITE_` prefix. |
+| `BUNNY_LIBRARY_ID` | Yes | Numeric Bunny Stream video library ID. |
+| `BUNNY_COLLECTION_ID` | If needed | Set this to the documentary collection when the library contains multiple contest sections. Leave blank only when the library contains documentaries alone. |
+| `BUNNY_PULL_ZONE` | No | Bunny CDN hostname. Defaults to `vz-<BUNNY_LIBRARY_ID>.b-cdn.net`. |
+| `PORT` | No | HTTP port; defaults to `8080`. |
 
-**Prerequisites:**  Node.js
+The API key is used only by the server-side `/api/bunny/videos` endpoint and is not included in the browser bundle. For deployment, add these variables in your hosting provider's environment/secrets settings. Deploy the app as a Node.js web service that runs `npm start`, not as a static `dist` directory, because the server provides the Bunny API endpoint.
 
-1. Install dependencies:
-   `npm install`
-2. Copy [.env.example](.env.example) to `.env.local` and configure the Bunny Stream values. Keep `BUNNY_API_KEY` server-side; do not prefix it with `VITE_`.
-3. Run locally:
-   `npm run dev`
-4. Build and run the production server:
-   `npm run build && npm start`
+## Run locally
 
-The app requests film data from the same-origin `/api/bunny/videos` endpoint. The production server reads Bunny settings at runtime, serves the built app, and keeps the Bunny API key out of browser code. Configure `BUNNY_API_KEY` and `BUNNY_LIBRARY_ID` (plus optional `BUNNY_COLLECTION_ID` and `BUNNY_PULL_ZONE`) as server environment variables in the deployment platform, and start the app with `npm start`. For Google Cloud Run, deploy the Node.js service so it runs this start command rather than serving the `dist` folder as a static site.
+Prerequisite: Node.js.
+
+```sh
+npm install
+cp .env.example .env
+# Edit .env with your Bunny Stream values.
+npm run dev
+```
+
+The Vite development server runs on port `3000`. To build and run the production server locally:
+
+```sh
+npm run build
+npm start
+```

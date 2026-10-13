@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useFestival } from '../context/FestivalContext';
-import { FilmSubmission, ScoreRubric } from '../types/festival';
 import { 
   Trophy, 
-  Download, 
-  ChevronRight 
+  Download
 } from 'lucide-react';
 import { CATEGORY_LABELS } from '../data/mockFilms';
 
@@ -12,18 +10,11 @@ export const DeliberationView: React.FC = () => {
   const { films, currentJudge, scores, getAverageScore, setActiveFilmId, setActiveView, language } = useFestival();
   const isAr = language === 'ar';
 
-  const [categoryFilter, setCategoryFilter] = useState('all');
-
-  const filteredFilms = films.filter((f) => {
-    if (categoryFilter !== 'all' && f.category !== categoryFilter) return false;
-    return true;
-  });
-
-  const rankedFilms = filteredFilms.map((film) => {
+  const rankedFilms = films.map((film) => {
     const avg = getAverageScore(film.id);
     const myScore = scores[currentJudge.id]?.[film.id];
     const totalMy = myScore 
-      ? myScore.visualCoherence + myScore.storytelling + myScore.directionCinematography + myScore.soundDesign + myScore.aiInnovation
+      ? myScore.visualCoherence + myScore.storytelling + myScore.directionCinematography + myScore.soundDesign + myScore.documentaryInsight
       : 0;
 
     return {
@@ -71,8 +62,8 @@ export const DeliberationView: React.FC = () => {
           </div>
           <p className="text-xs text-stone-500 mt-1">
             {isAr
-              ? 'ترتيب أفلام المسابقة الـ 96 وفق تقييمات لجنة تحكيم مهرجان المعمورة.'
-              : 'Standings of the 96 AI competition films based on jury evaluations.'}
+              ? 'ترتيب الأفلام الوثائقية وفق تقييمات لجنة تحكيم مهرجان المعمورة.'
+              : 'Documentary film standings based on jury evaluations.'}
           </p>
         </div>
 
@@ -83,22 +74,6 @@ export const DeliberationView: React.FC = () => {
           <Download className="w-3.5 h-3.5 text-[#9E7A2A]" />
           <span>{isAr ? 'تصدير CSV' : 'Export CSV'}</span>
         </button>
-      </div>
-
-      {/* Filter */}
-      <div className="flex items-center gap-2 text-xs">
-        <span className="text-stone-500">Category:</span>
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-          className="bg-white border border-stone-200 rounded-lg px-2.5 py-1 text-stone-700 focus:outline-none focus:border-[#9E7A2A]"
-        >
-          {Object.entries(CATEGORY_LABELS).map(([k, v]) => (
-            <option key={k} value={k}>
-              {isAr ? v.ar : v.en}
-            </option>
-          ))}
-        </select>
       </div>
 
       {/* Table in White Mode */}

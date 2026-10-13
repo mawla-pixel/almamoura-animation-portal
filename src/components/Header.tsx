@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFestival, PortalView } from '../context/FestivalContext';
 import { AlMamouraLogo } from './AlMamouraLogo';
-import { Globe, UserCheck } from 'lucide-react';
+import { Globe } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const { 
@@ -72,7 +72,7 @@ export const Header: React.FC = () => {
               J
             </div>
             <span className="font-medium">
-              {isAr ? 'لجنة تحكيم المعمورة' : 'Al Mamoura Jury'}
+              {isAr ? 'لجنة تحكيم الأفلام الوثائقية' : 'Documentary Jury'}
             </span>
           </div>
         </div>

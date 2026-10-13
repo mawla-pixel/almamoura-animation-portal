@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -15,5 +16,5 @@ app.get('*', (_req, res) => {
 
 const port = Number(process.env.PORT) || 8080;
 app.listen(port, '0.0.0.0', () => {
-  console.log(`Festival portal listening on port ${port}`);
+  console.log(`Documentary portal listening on port ${port}`);
 });

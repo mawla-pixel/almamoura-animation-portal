@@ -1,7 +1,7 @@
 import React from 'react';
 import { FilmSubmission } from '../types/festival';
 import { useFestival } from '../context/FestivalContext';
-import { Play, Award, CheckCircle } from 'lucide-react';
+import { Play, CheckCircle } from 'lucide-react';
 import { CATEGORY_LABELS } from '../data/mockFilms';
 
 interface FilmCardProps {
@@ -10,11 +10,10 @@ interface FilmCardProps {
 }
 
 export const FilmCard: React.FC<FilmCardProps> = ({ film, onSelect }) => {
-  const { currentJudge, getJudgeScore, getAverageScore, language } = useFestival();
+  const { currentJudge, getJudgeScore, language } = useFestival();
   const isAr = language === 'ar';
 
   const myScore = getJudgeScore(currentJudge.id, film.id);
-  const aggregate = getAverageScore(film.id);
   const categoryLabel = CATEGORY_LABELS[film.category]?.[language] || film.category;
 
   const totalPoints = myScore
@@ -22,7 +21,7 @@ export const FilmCard: React.FC<FilmCardProps> = ({ film, onSelect }) => {
       myScore.storytelling +
       myScore.directionCinematography +
       myScore.soundDesign +
-      myScore.aiInnovation
+    myScore.documentaryInsight
     : null;
 
   return (
@@ -36,8 +35,6 @@ export const FilmCard: React.FC<FilmCardProps> = ({ film, onSelect }) => {
         <div className="relative z-10 flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5 font-mono text-[11px] text-amber-200">
             <span>{categoryLabel}</span>
-            <span className="text-stone-400">·</span>
-            <span>{film.year}</span>
           </div>
 
           {myScore?.isCompleted ? (
@@ -82,11 +79,6 @@ export const FilmCard: React.FC<FilmCardProps> = ({ film, onSelect }) => {
           <p className="text-xs text-stone-600 line-clamp-2 leading-relaxed">
             {isAr ? film.synopsisAr : film.synopsis}
           </p>
-        </div>
-
-        {/* AI Tools */}
-        <div className="pt-2 border-t border-stone-100 text-[11px] text-stone-500 font-mono truncate">
-          AI: {film.aiToolchain.join(' · ')}
         </div>
 
         {/* Card Footer: Score & CTA */}

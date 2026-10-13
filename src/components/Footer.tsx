@@ -11,13 +11,13 @@ export const Footer: React.FC = () => {
     <footer className="mt-16 border-t border-stone-200 bg-white py-8 text-xs text-stone-500">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
-          <AlMamouraLogo variant="light" size="sm" showText={false} />
+          <AlMamouraLogo variant="light" size="sm" showJuryLabel={false} />
           <div>
             <div className="font-semibold text-stone-800">
               Al Mamoura International Film Festival
             </div>
             <div className="text-[11px] text-stone-400">
-              {isAr ? 'مهرجان المعمورة السينمائي الدولي — أبوظبي، الإمارات العربية المتحدة' : 'Official AI Competition Screening Portal · Abu Dhabi, UAE'}
+              {isAr ? 'بوابة تحكيم الأفلام الوثائقية الرسمية · أبوظبي، الإمارات العربية المتحدة' : 'Official Documentary Competition Screening Portal · Abu Dhabi, UAE'}
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@ export const Footer: React.FC = () => {
 
           <button
             onClick={() => {
-              if (window.confirm(isAr ? 'إعادة ضبط البيانات للافتراضي؟' : 'Reset demo data to defaults?')) {
+              if (window.confirm(isAr ? 'إعادة ضبط بيانات الأفلام الوثائقية والتقييمات؟' : 'Reset documentary films and jury scores?')) {
                 resetAllData();
               }
             }}

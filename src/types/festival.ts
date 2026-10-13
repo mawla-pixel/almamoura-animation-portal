@@ -1,17 +1,12 @@
-export type AICategory = 
-  | 'narrative'
-  | 'scifi'
-  | 'animation'
-  | 'experimental'
-  | 'documentary';
+export type FilmCategory = 'documentary';
 
 export interface ScoreRubric {
-  visualCoherence: number;       // 1 - 10: Character consistency, temporal stability, prompt fidelity
-  storytelling: number;          // 1 - 10: Narrative structure, emotional impact, pacing
-  directionCinematography: number; // 1 - 10: Framing, virtual camera motion, lighting design, editing
-  soundDesign: number;           // 1 - 10: AI voice dubbing, original score, Foley, sound mix
-  aiInnovation: number;          // 1 - 10: Novelty of AI pipeline, creative risk, boundary pushing
-  recommendation: 'grand_prize' | 'best_visuals' | 'best_story' | 'best_sound' | 'innovation_award' | 'official_selection' | 'unscored';
+  visualCoherence: number;
+  storytelling: number;
+  directionCinematography: number;
+  soundDesign: number;
+  documentaryInsight: number;
+  recommendation: 'grand_prize' | 'best_directing' | 'best_cinematography' | 'best_editing' | 'best_documentary_impact' | 'official_selection' | 'unscored';
   writtenCritique: string;
   verdictDate?: string;
   isCompleted: boolean;
@@ -33,7 +28,7 @@ export interface BunnyStreamConfig {
   videoId: string;          // Bunny Video GUID e.g. "9a8b7c6d-..."
   directIframeUrl?: string; // Optional full iframe URL
   directHlsUrl?: string;    // Optional direct .m3u8 stream URL
-  fallbackVideoUrl?: string;// Reliable webm/mp4 sample preview
+  fallbackVideoUrl?: string;
   cdnHostname?: string;     // e.g. "video.bunnycdn.com" or "vz-xyz.b-cdn.net"
 }
 
@@ -44,18 +39,15 @@ export interface FilmSubmission {
   director: string;
   country: string;
   countryCode: string;
-  category: AICategory;
+  category: FilmCategory;
   runtimeMinutes: number;
   runtimeFormatted: string; // "08:42"
-  aiToolchain: string[];   // e.g. ["Runway Gen-3", "Midjourney v6", "ElevenLabs", "Suno v3"]
   synopsis: string;
   synopsisAr: string;
-  directorStatement: string;
   posterBgGradient: string;
   accentColor: string;
   bunnyStream: BunnyStreamConfig;
   aspectRatio: '16:9' | '2.39:1' | '4:3';
-  year: number;
   featured?: boolean;
 }
 

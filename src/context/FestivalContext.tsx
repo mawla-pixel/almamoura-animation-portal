@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { FilmSubmission, JudgeProfile, ScoreRubric, TimecodedNote } from '../types/festival';
+import { FilmSubmission, JudgeProfile, ScoreRubric } from '../types/festival';
 import { INITIAL_JUDGES } from '../data/mockFilms';
 import { fetchBunnyLibraryVideos } from '../services/bunnyApi';
 
@@ -17,8 +17,6 @@ interface FestivalContextType {
   setActiveFilmId: (id: string | null) => void;
   activeView: PortalView;
   setActiveView: (view: PortalView) => void;
-  activeCategory: string;
-  setActiveCategory: (cat: string) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   language: 'en' | 'ar';
@@ -35,7 +33,7 @@ const DEFAULT_RUBRIC: ScoreRubric = {
   storytelling: 8,
   directionCinematography: 8,
   soundDesign: 7,
-  aiInnovation: 8,
+  documentaryInsight: 8,
   recommendation: 'official_selection',
   writtenCritique: '',
   isCompleted: false,
@@ -47,7 +45,7 @@ export const FestivalProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   // Films state (strictly sourced from Bunny Stream)
   const [films, setFilms] = useState<FilmSubmission[]>(() => {
     try {
-      const saved = localStorage.getItem('almamoura_films');
+      const saved = localStorage.getItem('almamoura_documentary_films');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) return parsed;
@@ -65,14 +63,13 @@ export const FestivalProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const [activeFilmId, setActiveFilmId] = useState<string | null>(films[0]?.id || null);
   const [activeView, setActiveView] = useState<PortalView>('screening');
-  const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [language, setLanguage] = useState<'en' | 'ar'>('en');
 
   // Scores state: judgeId -> filmId -> rubric
   const [scores, setScores] = useState<Record<string, Record<string, ScoreRubric>>>(() => {
     try {
-      const saved = localStorage.getItem('almamoura_scores');
+      const saved = localStorage.getItem('almamoura_documentary_scores');
       if (saved) return JSON.parse(saved);
     } catch {}
     return {};
@@ -81,12 +78,12 @@ export const FestivalProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   // Save state to localStorage
   useEffect(() => {
     if (films.length > 0) {
-      localStorage.setItem('almamoura_films', JSON.stringify(films));
+      localStorage.setItem('almamoura_documentary_films', JSON.stringify(films));
     }
   }, [films]);
 
   useEffect(() => {
-    localStorage.setItem('almamoura_scores', JSON.stringify(scores));
+    localStorage.setItem('almamoura_documentary_scores', JSON.stringify(scores));
   }, [scores]);
 
   // Function to load live films from Bunny Stream
@@ -152,7 +149,7 @@ export const FestivalProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     Object.values(scores).forEach((judgeDict) => {
       const s = judgeDict[filmId];
       if (s && s.isCompleted) {
-        const sum = s.visualCoherence + s.storytelling + s.directionCinematography + s.soundDesign + s.aiInnovation;
+        const sum = s.visualCoherence + s.storytelling + s.directionCinematography + s.soundDesign + s.documentaryInsight;
         total += sum;
         count += 1;
       }
@@ -165,10 +162,10 @@ export const FestivalProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const resetAllData = () => {
-    localStorage.removeItem('almamoura_films');
-    localStorage.removeItem('almamoura_scores');
-    localStorage.removeItem('almamoura_notes');
-    localStorage.removeItem('almamoura_bunny_settings');
+    localStorage.removeItem('almamoura_documentary_films');
+    localStorage.removeItem('almamoura_documentary_scores');
+    localStorage.removeItem('almamoura_documentary_notes');
+    localStorage.removeItem('almamoura_documentary_bunny_settings');
     setFilms([]);
     setScores({});
     refetchBunnyFilms();
@@ -188,8 +185,6 @@ export const FestivalProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setActiveFilmId,
         activeView,
         setActiveView,
-        activeCategory,
-        setActiveCategory,
         searchQuery,
         setSearchQuery,
         language,
