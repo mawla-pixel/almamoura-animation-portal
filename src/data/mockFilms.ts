@@ -4,9 +4,9 @@ export const INITIAL_JUDGES: JudgeProfile[] = [
   {
     id: 'jury-official',
     name: 'Festival Jury',
-    nameAr: 'لجنة تحكيم الأفلام الوثائقية',
-    title: 'Documentary Film Adjudicator',
-    titleAr: 'محكم الأفلام الوثائقية',
+    nameAr: 'لجنة تحكيم أفلام الرسوم المتحركة',
+    title: 'Animation Film Adjudicator',
+    titleAr: 'محكم أفلام الرسوم المتحركة',
     institution: 'Al Mamoura Film Festival',
     avatarSeed: 'Jury',
     role: 'jury_member',
@@ -17,6 +17,6 @@ export const INITIAL_JUDGES: JudgeProfile[] = [
 export const INITIAL_FILMS: FilmSubmission[] = [];
 
 export const CATEGORY_LABELS: Record<string, { en: string; ar: string }> = {
-  all: { en: 'All Documentaries', ar: 'جميع الأفلام الوثائقية' },
-  documentary: { en: 'Documentary', ar: 'الوثائقي' },
+  all: { en: 'All Animation Films', ar: 'جميع أفلام الرسوم المتحركة' },
+  animation: { en: 'Animation', ar: 'الرسوم المتحركة' },
 };

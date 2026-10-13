@@ -72,7 +72,7 @@ export const Header: React.FC = () => {
               J
             </div>
             <span className="font-medium">
-              {isAr ? 'لجنة تحكيم الأفلام الوثائقية' : 'Documentary Jury'}
+              {isAr ? 'لجنة تحكيم الرسوم المتحركة' : 'Animation Jury'}
             </span>
           </div>
         </div>

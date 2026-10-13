@@ -44,11 +44,11 @@ export const ScreeningView: React.FC = () => {
   // Simple Scorecard State
   const existingScore = getJudgeScore(currentJudge.id, activeFilm.id);
 
-  const [visualCoherence, setVisualCoherence] = useState(existingScore?.visualCoherence ?? 8);
+  const [visualDesign, setVisualDesign] = useState(existingScore?.visualDesign ?? 8);
   const [storytelling, setStorytelling] = useState(existingScore?.storytelling ?? 8);
-  const [directionCinematography, setDirectionCinematography] = useState(existingScore?.directionCinematography ?? 8);
+  const [animationCraft, setAnimationCraft] = useState(existingScore?.animationCraft ?? 8);
   const [soundDesign, setSoundDesign] = useState(existingScore?.soundDesign ?? 7);
-  const [documentaryInsight, setDocumentaryInsight] = useState(existingScore?.documentaryInsight ?? 8);
+  const [originality, setOriginality] = useState(existingScore?.originality ?? 8);
   const [recommendation, setRecommendation] = useState<ScoreRubric['recommendation']>(
     existingScore?.recommendation ?? 'official_selection'
   );
@@ -58,34 +58,34 @@ export const ScreeningView: React.FC = () => {
   useEffect(() => {
     const s = getJudgeScore(currentJudge.id, activeFilm.id);
     if (s) {
-      setVisualCoherence(s.visualCoherence);
+      setVisualDesign(s.visualDesign);
       setStorytelling(s.storytelling);
-      setDirectionCinematography(s.directionCinematography);
+      setAnimationCraft(s.animationCraft);
       setSoundDesign(s.soundDesign);
-      setDocumentaryInsight(s.documentaryInsight);
+      setOriginality(s.originality);
       setRecommendation(s.recommendation);
       setWrittenCritique(s.writtenCritique);
     } else {
-      setVisualCoherence(8);
+      setVisualDesign(8);
       setStorytelling(8);
-      setDirectionCinematography(8);
+      setAnimationCraft(8);
       setSoundDesign(7);
-      setDocumentaryInsight(8);
+      setOriginality(8);
       setRecommendation('official_selection');
       setWrittenCritique('');
     }
     setSavedSuccess(false);
   }, [activeFilm.id, currentJudge.id, getJudgeScore]);
 
-  const totalScore = visualCoherence + storytelling + directionCinematography + soundDesign + documentaryInsight;
+  const totalScore = visualDesign + storytelling + animationCraft + soundDesign + originality;
 
   const handleSave = () => {
     saveScore(activeFilm.id, {
-      visualCoherence,
+      visualDesign,
       storytelling,
-      directionCinematography,
+      animationCraft,
       soundDesign,
-      documentaryInsight,
+      originality,
       recommendation,
       writtenCritique,
       isCompleted: true,
@@ -180,11 +180,11 @@ export const ScreeningView: React.FC = () => {
           {/* 5 Clean Sliders */}
           <div className="space-y-3">
             {[
-              { label: isAr ? 'السرد البصري' : 'Visual Storytelling', val: visualCoherence, set: setVisualCoherence },
-              { label: isAr ? 'البنية السردية والإيقاع' : 'Narrative Structure & Pacing', val: storytelling, set: setStorytelling },
-              { label: isAr ? 'الإخراج والتصوير السينمائي' : 'Direction & Cinematography', val: directionCinematography, set: setDirectionCinematography },
-              { label: isAr ? 'التصميم الصوتي والموسيقى' : 'Sound & Music', val: soundDesign, set: setSoundDesign },
-              { label: isAr ? 'عمق الرؤية الوثائقية' : 'Documentary Insight & Impact', val: documentaryInsight, set: setDocumentaryInsight },
+              { label: isAr ? 'التصميم البصري والأسلوب الفني' : 'Visual Design & Art Direction', val: visualDesign, set: setVisualDesign },
+              { label: isAr ? 'السرد والإيقاع' : 'Storytelling & Pacing', val: storytelling, set: setStorytelling },
+              { label: isAr ? 'تقنيات التحريك وحركة الشخصيات' : 'Animation Craft & Character Movement', val: animationCraft, set: setAnimationCraft },
+              { label: isAr ? 'التصميم الصوتي والموسيقى' : 'Sound Design & Music', val: soundDesign, set: setSoundDesign },
+              { label: isAr ? 'الأصالة والأثر الإبداعي' : 'Originality & Creative Impact', val: originality, set: setOriginality },
             ].map((item, idx) => (
               <div key={idx} className="bg-stone-50 p-3 rounded-xl border border-stone-200/80">
                 <div className="flex items-center justify-between text-xs mb-1">
@@ -215,10 +215,10 @@ export const ScreeningView: React.FC = () => {
             >
               <option value="official_selection">Official Selection</option>
               <option value="grand_prize">🏆 Grand Jury Prize Nominee</option>
-              <option value="best_directing">🎬 Best Directing</option>
-              <option value="best_cinematography">📷 Best Cinematography</option>
-              <option value="best_editing">✂️ Best Editing</option>
-              <option value="best_documentary_impact">🌍 Best Documentary Impact</option>
+              <option value="best_animation">🎞️ Best Animation</option>
+              <option value="best_visual_design">🎨 Best Visual Design</option>
+              <option value="best_character_animation">✨ Best Character Animation</option>
+              <option value="best_soundtrack">🎼 Best Soundtrack</option>
             </select>
           </div>
 

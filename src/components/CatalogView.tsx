@@ -61,22 +61,22 @@ export const CatalogView: React.FC = () => {
       <div className="bg-white rounded-2xl border border-stone-200 p-6 md:p-8 shadow-xs">
         <div className="max-w-3xl space-y-2">
           <div className="text-xs font-mono text-[#9E7A2A] uppercase tracking-wider font-semibold">
-            Al Mamoura Film Festival · Official Documentary Competition
+            Al Mamoura Film Festival · Official Animation Competition
           </div>
 
           <h1 className="font-['Cinzel'] text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight leading-tight">
-            {isAr ? 'أفلام المسابقة الوثائقية' : 'Documentary Competition Films'}
+            {isAr ? 'أفلام مسابقة الرسوم المتحركة' : 'Animation Competition Films'}
           </h1>
 
           <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
             {isAr
-              ? 'الأفلام الوثائقية الرسمية المشاركة في المسابقة، مستضافة عبر Bunny Stream للتحكيم.'
-              : 'Official documentary entries streamed from Bunny Stream for festival jury evaluation.'}
+              ? 'أفلام الرسوم المتحركة الرسمية المشاركة في المسابقة، مستضافة عبر Bunny Stream للتحكيم.'
+              : 'Official animation entries streamed from Bunny Stream for festival jury evaluation.'}
           </p>
 
           <div className="pt-2 flex flex-wrap items-center gap-4 text-xs text-stone-500 font-mono">
             <span>
-              <strong className="text-stone-900">{films.length}</strong> Documentaries Loaded from Bunny Stream
+              <strong className="text-stone-900">{films.length}</strong> Animation Films Loaded from Bunny Stream
             </span>
             <span>·</span>
             <span>

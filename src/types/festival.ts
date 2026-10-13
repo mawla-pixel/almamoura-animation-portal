@@ -1,12 +1,12 @@
-export type FilmCategory = 'documentary';
+export type FilmCategory = 'animation';
 
 export interface ScoreRubric {
-  visualCoherence: number;
+  visualDesign: number;
   storytelling: number;
-  directionCinematography: number;
+  animationCraft: number;
   soundDesign: number;
-  documentaryInsight: number;
-  recommendation: 'grand_prize' | 'best_directing' | 'best_cinematography' | 'best_editing' | 'best_documentary_impact' | 'official_selection' | 'unscored';
+  originality: number;
+  recommendation: 'grand_prize' | 'best_animation' | 'best_visual_design' | 'best_character_animation' | 'best_soundtrack' | 'official_selection' | 'unscored';
   writtenCritique: string;
   verdictDate?: string;
   isCompleted: boolean;

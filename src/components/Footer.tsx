@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
               Al Mamoura International Film Festival
             </div>
             <div className="text-[11px] text-stone-400">
-              {isAr ? 'بوابة تحكيم الأفلام الوثائقية الرسمية · أبوظبي، الإمارات العربية المتحدة' : 'Official Documentary Competition Screening Portal · Abu Dhabi, UAE'}
+              {isAr ? 'بوابة تحكيم مسابقة الرسوم المتحركة الرسمية · أبوظبي، الإمارات العربية المتحدة' : 'Official Animation Competition Screening Portal · Abu Dhabi, UAE'}
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@ export const Footer: React.FC = () => {
 
           <button
             onClick={() => {
-              if (window.confirm(isAr ? 'إعادة ضبط بيانات الأفلام الوثائقية والتقييمات؟' : 'Reset documentary films and jury scores?')) {
+              if (window.confirm(isAr ? 'إعادة ضبط بيانات أفلام الرسوم المتحركة والتقييمات؟' : 'Reset animation films and jury scores?')) {
                 resetAllData();
               }
             }}
