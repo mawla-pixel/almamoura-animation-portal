@@ -62,7 +62,7 @@ export const FestivalProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [currentJudge, setCurrentJudge] = useState<JudgeProfile>(INITIAL_JUDGES[0]);
 
   const [activeFilmId, setActiveFilmId] = useState<string | null>(films[0]?.id || null);
-  const [activeView, setActiveView] = useState<PortalView>('screening');
+  const [activeView, setActiveView] = useState<PortalView>('catalog');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [language, setLanguage] = useState<'en' | 'ar'>('en');
 
